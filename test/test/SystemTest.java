@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -27,6 +28,11 @@ public class SystemTest {
 		WebElement submit = driver.findElement(By.tagName("button"));
 		
 		submit.click();
+	}
+	
+	@After
+	public void finaliza() {
+		driver.close();
 	}
 
 }
