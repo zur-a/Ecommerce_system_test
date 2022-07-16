@@ -10,9 +10,12 @@ package test;
 	import org.openqa.selenium.WebElement;
 	import org.openqa.selenium.chrome.ChromeDriver;
 
+import padrao.LoginPage;
+
 public class SystemTest {
 
 	private WebDriver driver;
+	private LoginPage login;
 
 	@Before
 	public void inicializa() {
@@ -60,7 +63,7 @@ public class SystemTest {
 	public void deveDeletarUsuarioCadastrado() {
 		driver.get("http://www.ecommerce.com/admin/users");
 			
-		WebElement delete = driver.findElement(By.xpath("/html/body/div/div[1]/section[2]/div/div/div/div[2]/table/tbody/tr[1]/td[6]/a[3]"));
+		WebElement delete = driver.findElement(By.xpath("/html/body/div/div[1]/section[2]/div/div/div/div[2]/table/tbody/tr[2]/td[6]/a[3]"));
 		delete.click();
 			
 		driver.switchTo().alert().accept();
