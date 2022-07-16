@@ -11,52 +11,41 @@ package test;
 	import org.openqa.selenium.chrome.ChromeDriver;
 
 import padrao.LoginPage;
+import padrao.RegisterPage;
 
 public class SystemTest {
 
 	private WebDriver driver;
 	private LoginPage login;
+	private RegisterPage register;
 
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hiiii\\Downloads\\driver\\chromedriver.exe");
-		this.driver = driver;
+		this.driver = new ChromeDriver();
+		this.login = new LoginPage(driver);
+		this.register = new RegisterPage(driver);
 		
-		driver = new ChromeDriver();
-		driver.get("http://www.ecommerce.com/admin/login");
-		
-		WebElement user = driver.findElement(By.name("login"));
-		WebElement pass = driver.findElement(By.name("password"));
-				
-		user.sendKeys("admin");
-		pass.sendKeys("admin");
-		
-		WebElement submit = driver.findElement(By.tagName("button"));
-		
-		submit.click();
+		login.acessa();
+		login.preencheForm("admin", "admin");
+		login.submeteForm();
 	}
 		
 	@Test
 	public void deveCadastrarUsuario() {		
-		driver.get("http://www.ecommerce.com/admin/users/create");
+		register.acessa();
 			
-		WebElement nome = driver.findElement(By.name("desperson"));
-		WebElement login = driver.findElement(By.name("deslogin"));
-		WebElement phone = driver.findElement(By.name("nrphone"));
-		WebElement email = driver.findElement(By.name("desemail"));
-		WebElement password = driver.findElement(By.name("despassword"));
+		register.preencherForm(
+				"Gaius Iulius Caesar Octavianus Augustus", 
+				"Augustus", 
+				"998877665", 
+				"princepsCivitatis@roma.com", 
+				"Roma"
+				);
 			
-		nome.sendKeys("Gaius Iulius Caesar Octavianus Augustus");
-		login.sendKeys("Augustus");
-		phone.sendKeys("997788665");
-		email.sendKeys("princepsCivitatis@roma.com");
-		password.sendKeys("Roma");
+		register.submeterForm();
 			
-		WebElement submit2 = driver.findElement(By.className("btn-success"));
-			
-		submit2.click();
-			
-		assertTrue(driver.getPageSource().contains("Iulius"));
+		assertTrue(register.existeNaPagina("Iulius"));
 	}
 		
 	@Test
