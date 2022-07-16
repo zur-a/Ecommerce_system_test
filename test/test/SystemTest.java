@@ -12,12 +12,14 @@ package test;
 
 import padrao.LoginPage;
 import padrao.RegisterPage;
+import padrao.UsersPage;
 
 public class SystemTest {
 
 	private WebDriver driver;
 	private LoginPage login;
 	private RegisterPage register;
+	private UsersPage users;
 
 	@Before
 	public void inicializa() {
@@ -25,6 +27,7 @@ public class SystemTest {
 		this.driver = new ChromeDriver();
 		this.login = new LoginPage(driver);
 		this.register = new RegisterPage(driver);
+		this.users = new UsersPage(driver);
 		
 		login.acessa();
 		login.preencheForm("admin", "admin");
@@ -34,7 +37,6 @@ public class SystemTest {
 	@Test
 	public void deveCadastrarUsuario() {		
 		register.acessa();
-			
 		register.preencherForm(
 				"Gaius Iulius Caesar Octavianus Augustus", 
 				"Augustus", 
@@ -42,7 +44,6 @@ public class SystemTest {
 				"princepsCivitatis@roma.com", 
 				"Roma"
 				);
-			
 		register.submeterForm();
 			
 		assertTrue(register.existeNaPagina("Iulius"));
@@ -50,13 +51,10 @@ public class SystemTest {
 		
 	@Test
 	public void deveDeletarUsuarioCadastrado() {
-		driver.get("http://www.ecommerce.com/admin/users");
-			
-		WebElement delete = driver.findElement(By.xpath("/html/body/div/div[1]/section[2]/div/div/div/div[2]/table/tbody/tr[2]/td[6]/a[3]"));
-		delete.click();
-			
-		driver.switchTo().alert().accept();
-		assertTrue(!driver.getPageSource().contains("Iulius"));
+		users.acessa();
+		users.deletar();
+		
+		assertTrue(!users.existeNaPagina("Iulius"));
 	}
 		
 
