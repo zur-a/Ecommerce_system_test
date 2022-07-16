@@ -48,14 +48,46 @@ public class SystemTest {
 			
 		assertTrue(register.existeNaPagina("Iulius"));
 	}
+	
+	@Test
+	public void deveAlterarUsuarioCadastrado() {
+		driver.get("http://www.ecommerce.com/admin/users");
+		
+		WebElement alter = driver.findElement(By.xpath("/html/body/div/div[1]/section[2]/div/div/div/div[2]/table/tbody/tr[2]/td[6]/a[1]"));
+		alter.click();
+		
+		WebElement nome = driver.findElement(By.name("desperson"));
+		WebElement login = driver.findElement(By.name("deslogin"));
+		WebElement phone = driver.findElement(By.name("nrphone"));
+		WebElement email = driver.findElement(By.name("desemail"));
+		WebElement admin = driver.findElement(By.name("inadmin"));
+		
+		nome.clear();
+		login.clear();
+		phone.clear();
+		email.clear();
+		
+		nome.sendKeys("Caio Julio Cesar Otaviano Augusto");
+		login.sendKeys("Octavianus");
+		phone.sendKeys("998877664");
+		email.sendKeys("princepsImperator@roma.com");
+		admin.click();
+		
+		WebElement submit = driver.findElement(By.className("btn-primary"));
+		
+		submit.click();
+		
+		assertTrue(driver.getPageSource().contains("Caio"));
+	}
 		
 	@Test
 	public void deveDeletarUsuarioCadastrado() {
 		users.acessa();
 		users.deletar();
 		
-		assertTrue(!users.existeNaPagina("Iulius"));
+		assertTrue(!users.existeNaPagina("Caio"));
 	}
+	
 		
 
 	@After
