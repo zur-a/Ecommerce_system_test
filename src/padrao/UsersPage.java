@@ -4,16 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class UsersPage {
+public class UsersPage extends Page {
 	
 	private WebDriver driver;
 	
 	public UsersPage(WebDriver driver) {
+		super(driver);
 		this.driver = driver;
-	}
-	
-	public void acessa() {
-		driver.get("http://www.ecommerce.com/admin/users");
 	}
 	
 	public void deletar() {
@@ -46,15 +43,4 @@ public class UsersPage {
 		email.sendKeys(mail);
 		admin.click();
 	}
-	
-	public void submeterForm() {
-		WebElement submit = driver.findElement(By.className("btn-primary"));
-		
-		submit.click();
-	}
-	
-	public boolean existeNaPagina(String search) {
-		return driver.getPageSource().contains(search);
-	}
-
 }

@@ -13,6 +13,7 @@ import org.junit.Test;
 	import org.openqa.selenium.chrome.ChromeDriver;
 
 import padrao.LoginPage;
+import padrao.Page;
 import padrao.RegisterPage;
 import padrao.UsersPage;
 
@@ -31,14 +32,14 @@ public class SystemTest {
 		this.register = new RegisterPage(driver);
 		this.users = new UsersPage(driver);
 		
-		login.acessa();
-		login.preencheForm("admin", "admin");
-		login.submeteForm();
+		login.acessa("http://www.ecommerce.com/admin/login");
+		login.preencherForm("admin", "admin");
+		login.submeterForm();
 	}
 		
 	@Test
 	public void deveCadastrarUsuario() {		
-		register.acessa();
+		register.acessa("http://www.ecommerce.com/admin/users/create");
 		register.preencherForm(
 				"Gaius Iulius Caesar Octavianus Augustus", 
 				"Augustus", 
@@ -53,7 +54,7 @@ public class SystemTest {
 	
 	@Test
 	public void deveAlterarUsuarioCadastrado() {
-		users.acessa();
+		users.acessa("http://www.ecommerce.com/admin/users");
 		users.alterar();
 		users.preencherForm(
 				"Caio Julio Cesar Otaviano Augusto",
@@ -68,7 +69,7 @@ public class SystemTest {
 		
 	@Test
 	public void deveDeletarUsuarioCadastrado() {
-		users.acessa();
+		users.acessa("http://www.ecommerce.com/admin/users");
 		users.deletar();
 		
 		assertTrue(!users.existeNaPagina("Caio"));
